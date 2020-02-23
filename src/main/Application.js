@@ -160,15 +160,8 @@ export default class Application extends EventEmitter {
   }
 
   start (page, options = {}) {
-    this.showPage(page, options)
-  }
+    const win = this.showPage(page, options)
 
-  showPage (page, options = {}) {
-    const { openedAtLogin } = options
-    const autoHideWindow = this.configManager.getUserConfig('auto-hide-window')
-    const win = this.windowManager.openWindow(page, {
-      hidden: openedAtLogin || autoHideWindow
-    })
     win.once('ready-to-show', () => {
       this.isReady = true
       this.emit('ready')
@@ -176,6 +169,14 @@ export default class Application extends EventEmitter {
     if (is.macOS()) {
       this.touchBarManager.setup(page, win)
     }
+  }
+
+  showPage (page, options = {}) {
+    const { openedAtLogin } = options
+    const autoHideWindow = this.configManager.getUserConfig('auto-hide-window')
+    return this.windowManager.openWindow(page, {
+      hidden: openedAtLogin || autoHideWindow
+    })
   }
 
   show (page = 'index') {
