@@ -96,6 +96,7 @@ export default class ConfigManager {
         'session-path': getSessionPath(),
         'task-notification': true,
         'theme': 'auto',
+        'auto-hide-window': false,
         'tracker-source': [
           NGOSANG_TRACKERS_ALL_IP_URL,
           NGOSANG_TRACKERS_ALL_URL
